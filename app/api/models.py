@@ -13,7 +13,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String, nullable=True)  # Telegram username
 
     # Связь с заявками (один пользователь может иметь несколько заявок)
-    applications: Mapped[list['Application']] = relationship(back_populates='user')
+    applications: Mapped[list["Application"]] = relationship(back_populates="user")
 
 
 class Master(Base):
@@ -24,7 +24,7 @@ class Master(Base):
     master_name: Mapped[str] = mapped_column(String, nullable=False)  # Имя мастера
 
     # Связь с заявками (один мастер может иметь несколько заявок)
-    applications: Mapped[list['Application']] = relationship(back_populates='master')
+    applications: Mapped[list["Application"]] = relationship(back_populates="master")
 
 
 class Service(Base):
@@ -35,15 +35,15 @@ class Service(Base):
     service_name: Mapped[str] = mapped_column(String, nullable=False)  # Название услуги
 
     # Связь с заявками (одна услуга может быть частью нескольких заявок)
-    applications: Mapped[list['Application']] = relationship(back_populates='service')
+    applications: Mapped[list["Application"]] = relationship(back_populates="service")
 
 
 class Application(Base):
     __tablename__ = 'applications'
 
     class GenderEnum(enum.Enum):
-        male = 'Мужской'
-        female = 'Женский'
+        male = "Мужской"
+        female = "Женский"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)  # Уникальный идентификатор заявки
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey('users.telegram_id'))  # Внешний ключ на пользователя
@@ -54,6 +54,6 @@ class Application(Base):
     gender: Mapped[GenderEnum] = mapped_column(Enum(GenderEnum), nullable=False)
     client_name: Mapped[str] = mapped_column(String, nullable=False)  # Имя пользователя
     # Связи с пользователем, мастером и услугой
-    user: Mapped['User'] = relationship(back_populates='applications')
-    master: Mapped['Master'] = relationship(back_populates='applications')
-    service: Mapped['Service'] = relationship(back_populates='applications')
+    user: Mapped["User"] = relationship(back_populates="applications")
+    master: Mapped["Master"] = relationship(back_populates="applications")
+    service: Mapped["Service"] = relationship(back_populates="applications")

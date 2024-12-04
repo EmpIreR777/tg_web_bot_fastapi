@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block content %}
+<header>
+    <img class="header-image"
+         src="/static/img/photo.jpg"
+         alt="Элегантный интерьер парикмахерской с кожаными креслами и зеркалами" width="1500" height="1000">
+    <div class="header-content">
+        <svg class="scissors" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30,40 L70,80 M30,80 L70,40 M50,60 L90,20 M50,60 L10,20"/>
+        </svg>
+        <h1>{{ title }}</h1>
+    </div>
+</header>
+<main>
+    <h2>Откройте для себя мир стиля</h2>
+    <div class="divider"></div>
+    <p>Наши <span class="highlight">талантливые мастера</span> создадут для вас <span class="highlight">неповторимый образ</span>,
+        который подчеркнет вашу индивидуальность и шарм.</p>
+
+    <!-- Кнопка для записи -->
+    <a id="book-button" class="btn">Записаться сейчас</a>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/index.js"></script>
+{% endblock %}

@@ -14,10 +14,6 @@ class ServiceDAO(BaseDAO):
     model = Service
 
 
-class MasterDAO(BaseDAO):
-    model = Master
-
-
 class ApplicationDAO(BaseDAO):
     model = Application
 
@@ -71,7 +67,10 @@ class ApplicationDAO(BaseDAO):
         async with async_session_maker() as session:
             try:
                 # Используем joinedload для загрузки связанных данных
-                query = select(cls.model).options(joinedload(cls.model.master), joinedload(cls.model.service))
+                query = (
+                    select(cls.model)
+                    .options(joinedload(cls.model.master), joinedload(cls.model.service))
+                )
                 result = await session.execute(query)
                 applications = result.scalars().all()
 
@@ -85,10 +84,14 @@ class ApplicationDAO(BaseDAO):
                         "appointment_date": app.appointment_date,
                         "appointment_time": app.appointment_time,
                         "client_name": app.client_name,  # Имя клиента
-                        "gender": app.gender.value,  # Пол клиента
+                        "gender": app.gender.value  # Пол клиента
                     }
                     for app in applications
                 ]
             except SQLAlchemyError as e:
                 print(f"Error while fetching all applications: {e}")
                 return None
+
+
+class MasterDAO(BaseDAO):
+    model = Master
